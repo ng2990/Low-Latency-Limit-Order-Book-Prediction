@@ -1,6 +1,10 @@
+from collections import Counter
+
 import torch
 from torch.utils.data import Dataset
-from collections import Counter
+
+OUT_PATH = "data/processed/fi2010_processed.pt"
+
 
 class LobsterSequenceDataset(Dataset):
     def __init__(self, path: str, split: str = "train"):
@@ -34,28 +38,37 @@ def analyze_class_distribution(dataset, name="Dataset"):
     counter = Counter(labels)
     total = len(labels)
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"{name} Class Distribution")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
     for cls in sorted(counter.keys()):
         count = counter[cls]
         pct = 100 * count / total
         print(f"Class {cls}: {count:,} samples ({pct:.2f}%)")
     print(f"Total: {total:,} samples")
-    print(f"{'='*60}\n")
+    print(f"{'=' * 60}\n")
 
     return counter
 
 
-if __name__ == "__main__":
-    # This block ONLY runs if you explicitly execute this file:
-    #   python src/lob/data/lobster_sequence_dataset.py
-    DATA_PATH = "data/processed/fi2010_processed.pt"  # OUT_PATH
-    train_dataset = LobsterSequenceDataset(DATA_PATH, "train")
-    val_dataset = LobsterSequenceDataset(DATA_PATH, "val")
-    test_dataset = LobsterSequenceDataset(DATA_PATH, "test")
+def get_datasets(path=OUT_PATH):
+    train_dataset = LobsterSequenceDataset(path, "train")
+    val_dataset = LobsterSequenceDataset(path, "val")
+    test_dataset = LobsterSequenceDataset(path, "test")
+
+    return train_dataset, val_dataset, test_dataset
+
+
+def analyze_data_distributions():
+    train_dataset, val_dataset, test_dataset = get_datasets(OUT_PATH)
     print(f"Loaded: Train={len(train_dataset):,}, Val={len(val_dataset):,}, Test={len(test_dataset):,}")
 
-    analyze_class_distribution(train_dataset, "Training Set")
-    analyze_class_distribution(val_dataset, "Validation Set")
-    analyze_class_distribution(test_dataset, "Test Set")
+    train_dist = analyze_class_distribution(train_dataset, "Training Set")
+    val_dist = analyze_class_distribution(val_dataset, "Validation Set")
+    test_dist = analyze_class_distribution(test_dataset, "Test Set")
+
+    return train_dist, val_dist, test_dist
+
+
+if __name__ == "__main__":
+    analyze_data_distributions()
