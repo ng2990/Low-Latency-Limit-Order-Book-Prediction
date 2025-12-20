@@ -12,22 +12,9 @@
 
 ## 1. Problem Statement
 
-A Limit Order Book records all outstanding Limit Orders to buy and sell a security. These prices are continuously
-updated at millisecond or sub millisecond scale
+High-frequency trading systems need to predict short-term price movements from limit order book (LOB) data, but any predictive edge is only useful if it can be produced within very tight latency budgets. The core problem is a latency–accuracy tradeoff: models that capture richer temporal structure (e.g., Transformers) can improve prediction quality, but they are often too slow for deployment in latency-critical settings, while faster CNN-style models may miss longer-range dependencies and underperform on accuracy.
 
-**Bid price** is defined as the price buyer is willing to pay (best bid = highest price)
-
-**Ask price** is defined price seller is willing to accept (best ask = lowest price)
-
-**Mid price** is the mean of best bid and best ask prices:
-
-(best_bid + best_ask) / 2
-
-It is interesting to predict the price movements to optimize execution strategies to know when to trade aggressively vs
-passively and to automate bid/ask adjustments in market-making programs.
-
-Transformers are a good model architecture since they model temporal dependencies and interactions across price levels
-well.
+In this project, we frame the task as 3-class mid-price direction prediction (down / stationary / up) on the FI-2010 benchmark at a short horizon (k=10), and we evaluate both predictive performance (accuracy, macro-F1) and deployment performance (latency and throughput). Our goal is to understand when a Transformer’s accuracy gains justify its compute cost and which system-level optimizations can narrow the gap.
 
 ---
 
