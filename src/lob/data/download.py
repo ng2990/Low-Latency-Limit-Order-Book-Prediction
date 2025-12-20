@@ -26,7 +26,8 @@ def download_data():
         print(f"Downloading data to {zip_path}.")
 
         # get link from command line since requires auth each time
-        url = input("Please provide the download URL from https://etsin.fairdata.fi/dataset/73eb48d7-4dbc-4a10-a52a-da745b47a649/data: ")
+        url = input(
+            "Please provide the download URL from https://etsin.fairdata.fi/dataset/73eb48d7-4dbc-4a10-a52a-da745b47a649/data: ")
 
         response = requests.get(url)
 
