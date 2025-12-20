@@ -1,8 +1,7 @@
-# HPML Project: [Low-Latency Limit Order Book Prediction]
+# HPML Project: Low-Latency Limit Order Book Prediction
 
 ## Team Information
 
-- **Team Name**: [Team Name]
 - **Members**:
 - Max Schettewi (mjs2430)
 - Shubham Mangalvedhe (srm2251)
