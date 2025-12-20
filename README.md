@@ -49,7 +49,29 @@ Both models are trained as multi-class classifiers using class-weighted cross en
 
 ## 3. Final Results Summary
 
-TODO 
+We benchmark a Transformer encoder against a DeepLOB-style CNN baseline on FI-2010 (NoAuction_Zscore) for 3-class mid-price direction prediction at horizon k=10, using T=100 event windows and 144 features per event.
+
+Predictive Performance (Held-out Test, k=10)
+DeepLOB (CNN): 63.02% accuracy, 0.58 macro-F1, 0.42 precision (Up/Down)
+Transformer (Ours): 67.91% accuracy, 0.65 macro-F1, 0.49 precision (Up/Down)
+Overall, the Transformer improves accuracy by +4.9% and macro-F1 by +0.07, with stronger minority-class precision.
+
+Inference Benchmarks (NVIDIA A100, 100 runs)
+HFT / single-sample (Batch=1):
+CNN: 0.69 ms latency ( 1,458 samp/s )
+Transformer: 1.57 ms latency ( 637 samp/s )
+The CNN is about 2.2× faster in pure latency.
+
+Training/backtest throughput setting (Batch=256):
+CNN: 10.60 ms per batch ( 24,146 samp/s )
+Transformer: 6.58 ms per batch ( 38,933 samp/s )
+The Transformer is about 61% higher throughput at scale.
+
+Quantization Finding (Dynamic INT8)
+Dynamic quantization reduced model size slightly (3.35 MB → 3.33 MB) but did not improve latency in the latency-critical regime; it regressed inference from 1.57 ms → 1.65 ms (≈ 0.95×). This highlights that compression is not automatically speed: overhead can dominate for small-batch, latency-focused workloads.
+
+Key Takeaway
+The Transformer delivers better signal quality (accuracy/F1), but you “pay” for it with ~+0.88 ms additional batch=1 latency. The CNN is preferred for ultra-low-latency execution, while the Transformer becomes attractive when predictive power matters and/or when inference can be batched for throughput.
 
 ---
 
