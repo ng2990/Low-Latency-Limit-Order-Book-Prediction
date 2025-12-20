@@ -59,6 +59,8 @@ pip install -r requirements.txt
 ### B. Wandb Dashboard
 View training and evaluation metrics [here](https://wandb.ai/mjs2430-columbia-university/HPML%20LOB?nw=nwusermjs2430). 
 
+Since the Wandb project is by invite only, it is also shared Google Drive (Columbia University emails) [here](https://drive.google.com/drive/folders/1xVU8LKgV-kNAkewWp0iTdvz1tReQjOy9).
+
 ---
 
 ### C. Specify for Training or For Inference or if Both
