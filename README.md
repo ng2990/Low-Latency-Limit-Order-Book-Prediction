@@ -1,7 +1,7 @@
 # HPML Project: Low-Latency Limit Order Book Prediction
 
 ## Team Information
-
+- **Team Name**: The Quants
 - **Members**:
 - Max Schettewi (mjs2430)
 - Shubham Mangalvedhe (srm2251)
