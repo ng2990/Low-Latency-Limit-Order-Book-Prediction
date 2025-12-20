@@ -34,7 +34,16 @@ well.
 
 ## 2. Model Description
 
-TODO 
+We implement and compare two architectures for short-horizon mid-price movement prediction on the FI-2010 limit order book benchmark. Both models take the same supervised input: a rolling window of T = 100 events, where each event is represented by 144 LOB features (so each sample is a 100 × 144 sequence). The prediction target is a 3-class direction label at horizon k = 10 (down / stationary / up).
+
+CNN Baseline (DeepLOB-style).
+The CNN baseline treats each input window as a 2D feature map by reshaping the sequence to [B, 1, 144, 100] (features as “height”, time as “width”). It uses three Conv2D blocks with increasing channel sizes 32 → 64 → 128, with pooling along the time dimension to reduce temporal resolution. A global average pooling layer aggregates the learned representation, followed by a small fully connected head that outputs 3-class logits. This model is designed as a strong low-latency baseline.
+
+Transformer Classifier.
+The Transformer model linearly projects the 144 input features into an embedding space with d_model = 128, adds sinusoidal positional encoding to preserve event ordering, and passes the sequence through a 4-layer Transformer encoder with 8 attention heads and d_ff = 512. We aggregate the sequence using mean pooling over time, then apply an MLP head (128 → 64 → 3) to produce logits. This model is intended to better capture longer-range temporal dependencies at the cost of higher compute.
+
+Training Notes.
+Both models are trained as multi-class classifiers using class-weighted cross entropy to mitigate imbalance (the “stationary” class dominates), and optimized with AdamW.
 
 ---
 
