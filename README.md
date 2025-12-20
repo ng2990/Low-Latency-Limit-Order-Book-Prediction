@@ -70,7 +70,7 @@ The Transformer is about 61% higher throughput at scale.
 Quantization Finding (Dynamic INT8):
 Dynamic quantization reduced model size slightly (3.35 MB → 3.33 MB) but did not improve latency in the latency-critical regime; it regressed inference from 1.57 ms → 1.65 ms (≈ 0.95×). This highlights that compression is not automatically speed: overhead can dominate for small-batch, latency-focused workloads.
 
-Key Takeaway
+Key Takeaway:
 The Transformer delivers better signal quality (accuracy/F1), but you “pay” for it with ~+0.88 ms additional batch=1 latency. The CNN is preferred for ultra-low-latency execution, while the Transformer becomes attractive when predictive power matters and/or when inference can be batched for throughput.
 
 ---
