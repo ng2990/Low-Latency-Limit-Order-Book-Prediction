@@ -67,7 +67,7 @@ CNN: 10.60 ms per batch ( 24,146 samp/s )
 Transformer: 6.58 ms per batch ( 38,933 samp/s )
 The Transformer is about 61% higher throughput at scale.
 
-Quantization Finding (Dynamic INT8)
+Quantization Finding (Dynamic INT8):
 Dynamic quantization reduced model size slightly (3.35 MB → 3.33 MB) but did not improve latency in the latency-critical regime; it regressed inference from 1.57 ms → 1.65 ms (≈ 0.95×). This highlights that compression is not automatically speed: overhead can dominate for small-batch, latency-focused workloads.
 
 Key Takeaway
