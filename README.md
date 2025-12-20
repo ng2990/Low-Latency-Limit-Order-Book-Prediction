@@ -5,9 +5,9 @@
 - **Team Name**: [Team Name]
 - **Members**:
 - Max Schettewi (mjs2430)
-- Shubham Mangalvedhe
-- William Wadolowski
-- Nikhil Gahlot
+- Shubham Mangalvedhe (srm2251)
+- William Wadolowski (wrw2113)
+- Nikhil Gahlot (ng2990)
 
 ---
 
